@@ -1,26 +1,17 @@
-const namesJsonUrl = 'https://s3-eu-west-1.amazonaws.com/bechdel-test-names/names.json'
 const nlp = require('compromise');
-const fetch = require("node-fetch");
-
-
-const getNamesForPath = (name) =>
-  fetch(namesJsonUrl).then(function(response){
-    return response.json()
-  }).then(function(names) {
-    const a = nlp(name, names).people().data();
-    return a;
-  });
-
 
 exports.handler = async (event) => {
   let body = JSON.parse(event.body);
-  let res =  await getNamesForPath(body.name);
+  let names = body.names;
+  let name = body.name;
+
+  let res =  nlp(name, names).people().data();
   return {
     statusCode: 200,
     headers: {
       "x-custom-header" : "my custom header value"
     },
-    body: JSON.stringify({ people: res })
+    body: JSON.stringify({ people: res, names: names })
   };
 };
 

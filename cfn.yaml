@@ -9,7 +9,7 @@ Parameters:
   App:
     Description: Application name
     Type: String
-    Default: gender-analysis
+    Default: women-in-media-gender-analysis
   Stage:
     Description: Stage name
     Type: String
@@ -20,7 +20,7 @@ Parameters:
   DeployBucket:
     Description: Bucket where RiffRaff uploads artifacts on deploy
     Type: String
-    Default: gender-analysis-dist
+    Default: women-in-media-gender-analysis-dist
 
 Resources:
   ExecutionRole:
@@ -81,7 +81,7 @@ Resources:
         S3Bucket:
           Ref: DeployBucket
         S3Key:
-          !Sub ${Stack}/${Stage}/${App}/${App}.zip
+          !Sub Archive.zip
       Environment:
         Variables:
           Stage: !Ref Stage
