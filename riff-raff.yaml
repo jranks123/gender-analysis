@@ -1,0 +1,32 @@
+regions: [eu-west-1]
+stacks: [playground]
+
+templates:
+    gender-analysis:
+      type: aws-lambda
+      app: gender-analysis
+      contentDirectory: gender-analysis
+      parameters:
+        bucket: gender-analysis-dist
+        functionNames: [gender-analysis-]
+        fileName: gender-analysis.zip
+        prefixStack: false
+
+
+deployments:
+  gender-analysis-lambda-upload:
+    template: gender-analysis
+    actions: [uploadLambda]
+  gender-analysis-cfn:
+    contentDirectory: gender-analysis
+    type: cloud-formation
+    app: gender-analysis
+    parameters:
+      prependStackToCloudFormationStackName: false
+      cloudFormationStackName: gender-analysis
+      templatePath: cloudformation/cfn.yaml
+    dependencies: [gender-analysis-lambda-upload]
+  gender-analysis-lambda-update:
+    template: gender-analysis
+    actions: [updateLambda]
+    dependencies: [gender-analysis-cfn]
