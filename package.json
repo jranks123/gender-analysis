@@ -19,7 +19,7 @@
     "compromise": "^11.9.0",
     "fetch": "^1.1.0",
     "fs": "0.0.1-security",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.1",
     "node-riffraff-artefact": "^2.0.1",
     "node-uuid": "^1.4.8",
     "pg": "^7.4.3",
